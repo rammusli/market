@@ -1,9 +1,9 @@
 from django.conf.urls import url
 
-from user.views import user
+from user.views import  LoginView
 
 urlpatterns = [
-    url(r'^$',user,name="首页"),
+    url(r'^login/$',LoginView.as_view(),name="登陆"),
     # url(r'^detail/(?P<id>\d+)/$',detail,name="详情"),
     # url(r'^add/$',add,name="添加"),
     # url(r'^delete/(?P<id>\d+)/$',delete,name="删除"),
