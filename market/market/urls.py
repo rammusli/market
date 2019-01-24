@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from production.views import IndexView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # 绑定子路由
@@ -23,4 +25,6 @@ urlpatterns = [
     url(r'^production/',include('production.urls',namespace='production')),
     url(r'^shoppingcart/', include('shoppingcart.urls', namespace='shoppingcart')),
     url(r'^user/', include('user.urls', namespace='user')),
+    url(r'^ckeditor/', include("ckeditor_uploader.urls")),
+
 ]

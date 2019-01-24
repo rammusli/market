@@ -1,11 +1,11 @@
 from django.conf.urls import url
 
-from user.views import LoginView, RegisterView
+from user.views import LoginView, RegisterView, SendMsg
 
 urlpatterns = [
-    # url(r'^login/$',LoginView.as_view(),name="登陆"),
     url(r'^login/$', LoginView.as_view(), name="login"),  # 用户登录
     url(r'^reg/$', RegisterView.as_view(), name="register"),  # 用户注册
+    url(r"^send_msg/$",SendMsg.as_view(),name='send_msg'), #发送信息
     #url(r'^member/$', member, name="member"),  # 用户中心
     # url(r'^detail/(?P<id>\d+)/$',detail,name="详情"),
     # url(r'^add/$',add,name="添加"),
