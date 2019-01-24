@@ -28,10 +28,8 @@
 <!--图片轮换-->
 <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
   <ul class="am-slides">
-        {% for carousel in all_carousel %}
-            <li><img src="{{ carousel.carousel_url.url }}"/></li>
-        {% empty %}
-            <li><img src="{% static 'images/banner.png' %}"/></li>
+        {% for v in all_banner %}
+            <li><img src="{{ MEDIA_URL }}{{ v.banner_url }}"/></li>
         {% endfor %}
 
   </ul>
@@ -246,8 +244,30 @@
 		 new PopUp_api({el:'.index-qd',html:'.qd-box'});
 	})()
 </script>
- 
-<script src="js/jquery.min.js"></script>
-<script src="js/amazeui.min.js"></script>
-	</body>
-</html>
+
+{% block footer_js %}
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=7ee8240e4fbe0421f5dfae1b9a239e88&plugin=AMap.CitySearch"></script>
+<script type="text/javascript">
+    //获取用户所在城市信息
+    function showCityInfo() {
+        //实例化城市查询类
+        var citysearch = new AMap.CitySearch();
+        //自动获取用户IP，返回当前城市
+        citysearch.getLocalCity(function(status, result) {
+            if (status === 'complete' && result.info === 'OK') {
+                if (result && result.city && result.bounds) {
+                    var cityinfo = result.city;
+                    var citybounds = result.bounds;
+                    document.getElementById('info').innerHTML = '您当前所在城市：'+cityinfo;
+                    //地图显示当前城市
+                    map.setBounds(citybounds);
+                }
+            } else {
+                document.getElementById('info').innerHTML = result.info;
+            }
+        });
+    }
+    showCityInfo();
+</script>
+
+{% endblock %}

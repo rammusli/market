@@ -30,16 +30,16 @@
 	    <!--图片轮换-->
 		<div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
 		  <ul class="am-slides">
-            {% for in prosku.gallery_set.all %}
-                <li><img src="{{ MEDIA_URL }}{{ g.img_url }}"/></li>
+            {% for v in prosku.gallery_set.all %}
+                <li><img src="{{ MEDIA_URL }}{{ v.photo_url }}"/></li>
             {% endfor %}
 		  </ul>
 		</div>
 		<div class="detal-info" style="position: relative; width: 100%;">
-			<p>{{ goodsSku.goods_spu.spu_name }}&emsp;{{ goodsSku.sku_name }}</p>
-			<h2>商城价：<span>￥52.00</span></h2>
+			<p>{{ prosku.sku_spu_id.spu_name }}&emsp;{{ prosku.sku_name }}</p>
+			<h2>商城价：<span>￥{{ prosku.sku_price }}</span></h2>
 			<div class="heart">
-				<img src="images/herat.png" width="25" id="imgflag" onclick="changeImage()" />
+				<img src="{% static 'images/herat.png' %}" width="25" id="imgflag" onclick="changeImage()" />
 				<p>收藏</p>
 			</div>
 		</div>
@@ -52,6 +52,7 @@
                 <a class="increase">+</a>
                <span id="dprice" class="price" style="display:none"> 36</span>
             </div>
+            <h4>{{ prosku.unit_name }}</h4>
         </div>
         <div style="background: #eee; height: 10px;"></div>
         <div class="am-tabs detail-list" data-am-tabs>
@@ -62,10 +63,7 @@
 		
 		  <div class="am-tabs-bd">
 		    <div class="am-tab-panel am-fade am-in am-active detail " id="tab1" >
-		            <p>产地: 中国大陆</p>
-                    <p>功效: 瘦身,美容,提神,抗氧化,保健,降三高</p>
-                    <p>保质期: >2年</p>
-                    <img src="images/test11.png" />
+            {{ prosku.sku_introduce|safe }}
 		    </div>
 		    <div class="am-tab-panel am-fade detail " id="tab2">
 		         <ul class="comment-list">
@@ -77,17 +75,7 @@
 		         <ul class="comment-pic">
 		         	<li>
 		         		<div class="tit">
-		         			<img src="images/tx.png" class="tx" />
-		         			<span>songke2014</span>
-		         			<i> [2016-01-01]</i>
-		         		</div>
-		         		<div class="comment-con">
-		         			买了些给家人，都说不错！
-		         		</div>
-		         	</li>
-		         	<li>
-		         		<div class="tit">
-		         			<img src="images/tx.png" class="tx" />
+		         			<img src="{% static 'images/tx.png' %}" class="tx" />
 		         			<span>songke2014</span>
 		         			<i> [2016-01-01]</i>
 		         		</div>
@@ -107,8 +95,11 @@
  	<li><a href="shopcart.html" class="join">加入购物车</a></li>
  	<li><a href="tureorder.html" class="imm-buy">立即购买</a></li>
  </ul>
- 
- <script>
+{% endblock %}
+
+
+{% block footer_js %}
+<script>
 	//购物数量加减
 	$(function(){
 		$('.increase').click(function(){
@@ -117,7 +108,7 @@
 			current_num += 1;
 			self.siblings('input').val(current_num);
 			update_item(self.siblings('input').data('item-id'));
-		})		
+		})
 		$('.decrease').click(function(){
 			var self = $(this);
 			var current_num = parseInt(self.siblings('input').val());
@@ -129,6 +120,7 @@
 		})
 	})
 </script>
+{% endblock %}
  
  
  
