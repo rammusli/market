@@ -201,7 +201,7 @@ class ActivityRegion(BaseModel):
     region_introduce = models.CharField(max_length=22,verbose_name="专区描述")
     region_order = models.IntegerField(verbose_name="专区排序")
     region_show = models.IntegerField(choices=SHOW_STATUS_CHOICES, verbose_name="上架状态", default=1)
-    region_sku = models.ManyToManyField(ProSKU,verbose_name='商品')
+    region_sku = models.ManyToManyField(to='ProSKU',verbose_name='商品')
 
 
     def __str__(self):

@@ -1,7 +1,8 @@
 # 导入全文检索框架索引类
 from haystack import indexes
 from production.models import ProSKU
-class ProSKUSearchIndex(indexes.SearchIndex, indexes.Indexable):
+
+class ProsSKUSearchIndex(indexes.SearchIndex, indexes.Indexable):
     # 设置需要检索的主要字段内容 use_template表示字段内容在模板中
     text = indexes.CharField(document=True, use_template=True)
     # 获取检索对应对的模型

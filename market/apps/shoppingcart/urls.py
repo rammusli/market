@@ -1,8 +1,8 @@
 from django.conf.urls import url
 
-from shoppingcart.views import shoppingcart
+from shoppingcart.views import AddCartView
 
 urlpatterns = [
-    url(r'^$',shoppingcart,name="首页"),
+    url(r'^add/$',AddCartView.as_view(),name='addcart'),
 
 ]

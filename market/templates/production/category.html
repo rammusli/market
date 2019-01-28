@@ -1,5 +1,6 @@
 {% extends 'common/parent.html' %}
 {% load static %}
+
 {% block head_css %}
 		<style>
 			.shop-list-mid .tit a{
@@ -20,158 +21,71 @@
                 <i class="am-icon-chevron-left"></i>
             </a>
         </div>
-        <div class="cate-search">
-            <input type="text" class="cate-input" placeholder="请输入您要的搜索的产品关键词" />
-            <input type="submit" class="cate-btn" />
-        </div>
+        <form action="{% url 'search:haystack_search' %}" method="get">
+            <div class="cate-search">
+                <input type="text" name="q" value="" class="cate-input" placeholder="请输入您要的搜索的产品关键词"/>
+                <input type="submit" value="" class="cate-btn"/>
+            </div>
+        </form>
     </header>
     <div style="height: 49px;"></div>
 {% endblock %}
 
 {% block content %}
     <ul class="list-nav">
-        <li class="current"><a href="">综合</a></li>
-        <li><a href="">销量</a></li>
-        <li><a href=""><i class="list-price">价格</i></a>></li>
-        <li><a href="">新品</a></li>
+        <li {% if order == 0 %}class="current"{% endif %}><a href="{% url 'production:category' cate_id 0 %}">综合</a></li>
+        <li {% if order == 1 %}class="current"{% endif %}><a href="{% url 'production:category' cate_id 1 %}">销量</a></li>
+        <li {% if order == 2 %}class="current"{% endif %}><a href="{% url 'production:category' cate_id 2 %}"><i
+                class="list-price">价格</i></a></li>
+        <li {% if order == 4 %}class="current"{% endif %}><a href="{% url 'production:category' cate_id 4 %}">新品</a></li>
     </ul>
     <div class="content-list">
         <div class="list-left">
-            <li><a href="">进口特产</a></li>
-            <li class="current"><a href="">休闲零食</a></li>
-            <li><a href="">糖果饼干</a></li>
-            <li><a href="">饮料牛奶</a></li>
-            <li><a href="">方便速食</a></li>
-            <li><a href="">生活用品</a></li>
-            <li><a href="">香烟代购</a></li>
-            <li><a href="">水果酸奶便当</a></li>
+           {% for category in categorys %}
+                <li {% if cate_id == category.pk %}class="current"{% endif %}>
+                    <a href="{% url 'production:category' category.pk order %}">{{ category.category_name }}</a>
+                </li>
+            {% endfor %}
         </div>
 
 
 
         <div class="list-right">
             <ul class="list-pro">
-        <li>
-            <a href="detail.html"><img src=" images/test10.png" class="list-pic" /></a>
-            <div class="shop-list-mid" style="width: 65%;">
-                <div class="tit"><a href="detail.html">法国加力果12个装 进口新鲜水果 嘎啦苹果 包邮</a></div>
-                <div class="am-gallery-desc">￥52</div>
-                <p>销量：5件</p>
-            </div>
-            <div class="list-cart">
-                <div class="d-stock ">
-                        <a class="decrease">-</a>
-                        <input id="num" readonly="" class="text_box" name="" type="text" value="0">
-                        <a class="increase">+</a>
-                </div>
-            </div>
-            <!--<a href="" class="list-cart"><img src="images/cart.png" width="30"/></a>-->
-        </li>
-        <li>
-            <a href="detail.html"><img src=" images/test10.png" class="list-pic" /></a>
-            <div class="shop-list-mid" style="width: 65%;">
-                <div class="tit"><a href="detail.html">法国加力果12个装 进口新鲜水果 嘎啦苹果 包邮</a></div>
-                <div class="am-gallery-desc">￥52</div>
-                <p>销量：5件</p>
-            </div>
-            <div class="list-cart">
-            <div class="d-stock ">
-                    <a class="decrease">-</a>
-                    <input id="num" readonly="" class="text_box" name="" type="text" value="0">
-                    <a class="increase">+</a>
-            </div>
-            </div>
-            <!--<a href="" class="list-cart"><img src="images/cart.png" width="30"/></a>-->
-        </li>
-        <li>
-            <a href="detail.html"><img src=" images/test10.png" class="list-pic" /></a>
-            <div class="shop-list-mid" style="width: 65%;">
-                <div class="tit"><a href="detail.html">法国加力果12个装 进口新鲜水果 嘎啦苹果 包邮</a></div>
-                <div class="am-gallery-desc">￥52</div>
-                <p>销量：5件</p>
-            </div>
-            <div class="list-cart">
-            <div class="d-stock ">
-                    <a class="decrease">-</a>
-                    <input id="num" readonly="" class="text_box" name="" type="text" value="0">
-                    <a class="increase">+</a>
-            </div>
-            </div>
-            <!--<a href="" class="list-cart"><img src="images/cart.png" width="30"/></a>-->
-        </li>
-        <li>
-            <a href="detail.html"><img src=" images/test10.png" class="list-pic" /></a>
-            <div class="shop-list-mid" style="width: 65%;">
-                <div class="tit"><a href="detail.html">法国加力果12个装 进口新鲜水果 嘎啦苹果 包邮</a></div>
-                <div class="am-gallery-desc">￥52</div>
-                <p>销量：5件</p>
-            </div>
-            <div class="list-cart">
-            <div class="d-stock ">
-                    <a class="decrease">-</a>
-                    <input id="num" readonly="" class="text_box" name="" type="text" value="0">
-                    <a class="increase">+</a>
-            </div>
-            </div>
-            <!--<a href="" class="list-cart"><img src="images/cart.png" width="30"/></a>-->
-        </li>
-        <li>
-            <a href="detail.html"><img src=" images/test10.png" class="list-pic" /></a>
-            <div class="shop-list-mid" style="width: 65%;">
-                <div class="tit"><a href="detail.html">法国加力果12个装 进口新鲜水果 嘎啦苹果 包邮</a></div>
-                <div class="am-gallery-desc">￥52</div>
-                <p>销量：5件</p>
-            </div>
-            <div class="list-cart">
-            <div class="d-stock ">
-                    <a class="decrease">-</a>
-                    <input id="num" readonly="" class="text_box" name="" type="text" value="0">
-                    <a class="increase">+</a>
-            </div>
-            </div>
-            <!--<a href="" class="list-cart"><img src="images/cart.png" width="30"/></a>-->
-        </li>
-        <li>
-            <a href="detail.html"><img src=" images/test10.png" class="list-pic" /></a>
-            <div class="shop-list-mid" style="width: 65%;">
-                <div class="tit"><a href="detail.html">法国加力果12个装 进口新鲜水果 嘎啦苹果 包邮</a></div>
-                <div class="am-gallery-desc">￥52</div>
-                <p>销量：5件</p>
-            </div>
-            <div class="list-cart">
-            <div class="d-stock ">
-                    <a class="decrease">-</a>
-                    <input id="num" readonly="" class="text_box" name="" type="text" value="0">
-                    <a class="increase">+</a>
-            </div>
-            </div>
-            <!--<a href="" class="list-cart"><img src="images/cart.png" width="30"/></a>-->
-        </li>
-        <li>
-            <a href="detail.html"><img src=" images/test10.png" class="list-pic" /></a>
-            <div class="shop-list-mid" style="width: 65%;">
-                <div class="tit"><a href="detail.html">法国加力果12个装 进口新鲜水果 嘎啦苹果 包邮</a></div>
-                <div class="am-gallery-desc">￥52</div>
-                <p>销量：5件</p>
-            </div>
-            <div class="list-cart">
-            <div class="d-stock ">
-                    <a class="decrease">-</a>
-                    <input id="num" readonly="" class="text_box" name="" type="text" value="0">
-                    <a class="increase">+</a>
-            </div>
-            </div>
-            <!--<a href="" class="list-cart"><img src="images/cart.png" width="30"/></a>-->
-        </li>
-
-    </ul>
+                {% for goods in goodsSkus %}
+                <li>
+                    <a href="{% url 'production:detail' goods.pk %}"><img src="{{ MEDIA_URL }}{{ goods.sku_logo }}" class="list-pic"/></a>
+                    <div class="shop-list-mid" style="width: 65%;">
+                        <div class="tit">
+                            <a href="detail.html">
+                                {{ goods.sku_spu_id.spu_name }}&emsp;{{ goods.sku_name }}
+                            </a>
+                        </div>
+                        <div class="am-gallery-desc">￥{{ goods.sku_price }}</div>
+                        <p>销量：{{ goods.sku_sales_volume }}{{ goods.sku_unit }}</p>
+                    </div>
+                    <div class="list-cart">
+                        <div class="d-stock ">
+                                <a class="decrease">-</a>
+                                <input id="num" sku_id="{{ goods.pk }}" readonly="" class="text_box" name="" type="text" value="0">
+                                <a class="increase">+</a>
+                        </div>
+                    </div>
+                    <!--<a href="" class="list-cart"><img src="images/cart.png" width="30"/></a>-->
+                </li>
+                {% empty %}
+                <li>该分类下没有商品</li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
-{% endblock %}
+
+
+
 	    <!--底部-->
- <div style="height: 55px;"></div>
- <div class="fix-bot">
-	   	  <div class="fix-bot-cart"><i>8</i></div>
+     <div style="height: 55px;"></div>
+     <div class="fix-bot">
+	   	  <a href="{% url 'shoppingcart:index' %}"><div class="fix-bot-cart"><i id="cart_count">{{ cart_count }}</i></div></a>
 	   	  <a href="tureorder.html" class="list-js">去结算</a>
 	   	  <a href="tureorder.html" class="list-jsk">一键快购</a>
 	   	  <!--<div class="js-text">
@@ -179,43 +93,96 @@
             	<p class="js-car">购物满50元免运费</p>
           </div>-->
  </div>
+{% endblock %}
  
- 
- 
- 
- 
- 
-<script src="js/jquery.min.js"></script>
-<script src="js/amazeui.min.js"></script>
-<script>
-//购物数量加减
-$(function(){
+{% block footer_js %}
+    <script>
+    $(function () {
+        //改变价格上的url地址
+        if ("{{ order }}" == 2) {
+            $(".list-price").parent("a").attr('href', "{% url 'production:category' cate_id 3 %}")
+        } else if ("{{ order }}" == 3) {
+            $(".list-price").parent("a").attr('href', "{% url 'sproduction:category' cate_id 2 %}")
+        }
+    });
+    //购物数量加减
+    $(function(){
 		$('.increase').click(function(){
 			var self = $(this);
 			var current_num = parseInt(self.siblings('input').val());
+			//购买商品的数量
 			current_num += 1;
-			if(current_num > 0){
-				self.siblings(".decrease").fadeIn();
-				self.siblings(".text_box").fadeIn();
-			}
-			self.siblings('input').val(current_num);
-			update_item(self.siblings('input').data('item-id'));
-		})		
-		$('.decrease').click(function(){
-			var self = $(this);
-			var current_num = parseInt(self.siblings('input').val());
-			if(current_num > 0){
-				current_num -= 1;
-                if(current_num < 1){
-	                self.fadeOut();
-					self.siblings(".text_box").fadeOut();
+			var  count = 1;
+			var  sku_id = self.siblings('input').attr('sku_id');
+			//发送ajax到后台
+			$.ajax({
+                type:'post',
+                url:'{% url 'shoppingcart:addcart' %}',
+                data:{
+                    'count':count,
+                    'sku_id':sku_id,
+                    'csrfmiddlewaretoken':'{{ csrf_token }}',
+                },
+                dataType : 'json',
+                success : function (data) {
+                    if(data.code == 0){
+                        if (current_num>0){
+                            self.siblings('.derease').fadeIn();
+                            self.siblings('.text_box').fadeIn();
+
+                        }
+                        self.siblings('.input').val(current_num);
+                        $('#cart_count').text(data.cart_count);
+                    }else if (data.code == 1){
+                        var flag = confirm('是否登陆');
+                        if(flag){
+                            location.href = {% url 'user:login' %}? next = {% url 'production:category' cate_id order %}
+                        }
+                    }
                 }
-				self.siblings('input').val(current_num);
-				update_item(self.siblings('input').data('item-id'));
-			}
-		})
-	})
+            });
+        });
+
+        $('.decrease').click(function () {
+            var self = $(this);
+            var current_num = parseInt(self.siblings('input').val());
+            if (current_num > 0) {
+                 //发送ajax到后台 添加购物车数据
+                //收集数据 count sku_id
+                var count = -1;
+                var sku_id = self.siblings('input').attr('sku_id');
+                //发送ajax
+                $.ajax({
+                    type:'post',
+                    url:'{% url "shoppingcart:addcart" %}',
+                    data:{
+                        "count":count,
+                        "sku_id":sku_id,
+                        "csrfmiddlewaretoken":"{{ csrf_token }}",
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if(data.code == 0){
+                            current_num -= 1;
+                            if (current_num < 1) {
+                                self.fadeOut();
+                                self.siblings(".text_box").fadeOut();
+                            }
+                            self.siblings('input').val(current_num);
+                            //更新购物车中总数量的显示
+                            $("#cart_count").text(data.cart_count);
+                        }else if (data.code == 1){
+                            //跳转到登陆页面
+                            var flag = confirm("没有登陆,是否立即登陆?");
+                            if(flag){
+                               location.href = "{% url 'user:login' %}?next={% url 'production:category' cate_id order %}"
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    })
 
 </script>
-	</body>
-</html>
+{% endblock %}

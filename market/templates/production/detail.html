@@ -30,7 +30,7 @@
 	    <!--图片轮换-->
 		<div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
 		  <ul class="am-slides">
-            {% for v in prosku.gallery_set.all %}
+            {% for v in prosku.photoalbum_set.all %}
                 <li><img src="{{ MEDIA_URL }}{{ v.photo_url }}"/></li>
             {% endfor %}
 		  </ul>
@@ -48,7 +48,6 @@
             <div class="d-stock">
               <a class="decrease">-</a>
                 <input id="num" readonly="" class="text_box" name="" type="text" value="1">
-                <input id="id" type="hidden" value="644">
                 <a class="increase">+</a>
                <span id="dprice" class="price" style="display:none"> 36</span>
             </div>

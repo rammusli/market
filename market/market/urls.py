@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^production/',include('production.urls',namespace='production')),
     url(r'^shoppingcart/', include('shoppingcart.urls', namespace='shoppingcart')),
     url(r'^user/', include('user.urls', namespace='user')),
+    #添加富文档子路由
     url(r'^ckeditor/', include("ckeditor_uploader.urls")),
-
+    #添加搜索子路由
+    url(r'^search/', include('haystack.urls', namespace='search')),
 ]

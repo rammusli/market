@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'order',               #订单模块
     'ckeditor',            # 添加ckeditor富文本编辑器
     'ckeditor_uploader',    # 添加ckeditor富文本编辑器
-    # 'haystack',             # 全文检索框架
+    'haystack',             # 全文检索框架
 ]
 
 MIDDLEWARE = [
@@ -169,10 +169,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 HAYSTACK_CONNECTIONS = {
     'default': {
         # 配置搜索引擎
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'ENGINE': 'utils.whoosh_cn_backend.WhooshEngine',
         # 配置索引文件目录
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
 #当添加、修改、删除数据时，自动生成索引
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+#每页显示条数
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 2

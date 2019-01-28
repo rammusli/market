@@ -61,11 +61,19 @@ class LoginView(View):
         #表单验证
         form = LoginModelForm(data)
         if form.is_valid():
+            #操作数据库
+            #登陆信息保存在session中
             user = form.cleaned_data.get("user")
             request.session['id']=user.pk
             request.session['user_phone']=user.user_phone
             # request.session.set_expiry(0)
-            return redirect(reverse("user:member"))
+            referer = request.session.get('referer')
+            #跳转到个人中心
+            if referer :
+                del request.session['referer']
+                return redirect(referer)
+            else:
+                return redirect(reverse("user:member"))
         else:
             # 数据不合法
             return render(request, 'user/login.html', context={"form": form})
@@ -110,6 +118,8 @@ class Info(BaseVerifyView):
         return render(request, "user/infor.html", context)
 
     def post(self, request):
+        data = request.POST
+        head = request.FILES.get('head')
         tellphone = request.session.get("tellphone")
         user = User.objects.get(user_telphone=tellphone)
         if request.FILES.get("user_head"):
